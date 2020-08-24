@@ -205,8 +205,19 @@ class EvaluacionesClaroDriveSteps:
 
             HtmlActions.click_html_element(input_busqueda, id='searchbox')
 
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
             input_busqueda.send_keys(Keys.RETURN)
+
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
             input_busqueda.send_keys(nombre_completo_de_la_imagen)
+
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
             input_busqueda.send_keys(Keys.RETURN)
 
             HtmlActions.webdriver_wait_presence_of_element_located(webdriver_test_ux, 20, class_name='result')
@@ -241,7 +252,15 @@ class EvaluacionesClaroDriveSteps:
 
                         if len(lista_botones) > 0:
                             boton_descarga = lista_botones[-1]
+
+                            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
                             boton_descarga.click()
+
+                            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
                             break
 
             tiempo_step_inicio = Temporizador.obtener_tiempo_timer()
@@ -293,6 +312,9 @@ class EvaluacionesClaroDriveSteps:
         try:
             action = ActionChains(webdriver_test_ux)
 
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
             archivo_localizado_por_descargar = HtmlActions.webdriver_wait_element_to_be_clickable(
                 webdriver_test_ux, 20, xpath='//span[@class="name-without-extension"][text()="{} "]'.format(
                     nombre_archivo_sin_ext))
@@ -323,6 +345,10 @@ class EvaluacionesClaroDriveSteps:
 
                         if len(lista_botones) > 0:
                             boton_borrar_archivo = lista_botones[-7]
+
+                            HtmlActions.webdriver_wait_until_not_presence_of_element_located(
+                                webdriver_test_ux, 10, xpath='//div[@class="row type-success"]')
+
                             boton_borrar_archivo.click()
                             break
 

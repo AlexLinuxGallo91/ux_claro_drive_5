@@ -207,6 +207,9 @@ def main():
     # se establece y obtiene el webdriver/navegar para la ejecucion de las pruebas UX en claro drive
     webdriver_ux_test = webdriver_config.configurar_obtencion_web_driver()
 
+    webdriver_ux_test.set_window_position(0,0)
+    webdriver_ux_test.set_window_size(1920, 1080)
+
     resultado_json_evaluacines_ux_claro_drive = ejecucion_validaciones_claro_drive(webdriver_ux_test,
                                                                                    argumento_script_json)
 

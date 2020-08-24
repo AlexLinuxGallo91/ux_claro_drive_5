@@ -345,6 +345,11 @@ class EvaluacionesClaroDriveSteps:
             msg_output = constantes_evaluaciones_claro_drive.MSG_OUTPUT_BORRADO_ARCHIVO_SIN_EXITO.format(e.msg)
             jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 4, 0, False, msg_output)
 
+        except ElementNotInteractableException as e:
+            msg_output = constantes_evaluaciones_claro_drive.MSG_OUTPUT_BORRADO_ARCHIVO_SIN_EXITO.format(e.msg)
+            jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 4, 0, False, msg_output)
+
+
         jsonEval = UtilsEvaluaciones.finalizar_tiempos_en_step(jsonEval, 4 ,tiempo_step_inicio, fecha_inicio)
 
         return jsonEval

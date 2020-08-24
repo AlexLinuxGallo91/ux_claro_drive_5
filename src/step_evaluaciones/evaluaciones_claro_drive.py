@@ -131,7 +131,8 @@ class EvaluacionesClaroDriveSteps:
                                                                              class_name='button-create-resource')
             HtmlActions.click_html_element(boton_crear, class_name='button-create-resource')
 
-            HtmlActions.webdriver_wait_presence_of_element_located(webdriver_test_ux, 20, class_name='file-name-header')
+            HtmlActions.webdriver_wait_presence_of_element_located(
+                webdriver_test_ux, 20, class_name='file-name-header')
 
             input_file = HtmlActions.webdriver_wait_presence_of_element_located(webdriver_test_ux, 20,
                                                                                 id='file_upload_start')
@@ -142,6 +143,9 @@ class EvaluacionesClaroDriveSteps:
 
             HtmlActions.webdriver_wait_presence_of_element_located(webdriver_test_ux, 720,
                                                                    xpath='//div[@class="up-file-actions isDone"]')
+
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(webdriver_test_ux, 10,
+                                                                             xpath='//div[@class="row type-success"]')
 
             btn_cerrar_div_progreso_carga_archivo = HtmlActions.webdriver_wait_element_to_be_clickable(
                 webdriver_test_ux, 4, class_name='up-close')
@@ -191,6 +195,9 @@ class EvaluacionesClaroDriveSteps:
             # establece el action para mover el mouse a un elemento html
             action = ActionChains(webdriver_test_ux)
 
+            HtmlActions.webdriver_wait_until_not_presence_of_element_located(webdriver_test_ux, 10,
+                                                                             xpath='//div[@class="row type-success"]')
+
             input_busqueda = HtmlActions.webdriver_wait_element_to_be_clickable(webdriver_test_ux, 20, id='searchbox')
 
             HtmlActions.webdriver_wait_until_not_presence_of_element_located(
@@ -218,13 +225,16 @@ class EvaluacionesClaroDriveSteps:
 
             if len(lista_de_divs_de_archivos) != 0:
                 for div in lista_de_divs_de_archivos:
-                    nombre_archivo_sin_extension_obtenido = div.find_element_by_class_name('name-without-extension').get_attribute('innerText')
+                    nombre_archivo_sin_extension_obtenido = div.find_element_by_class_name(
+                        'name-without-extension').get_attribute('innerText')
                     nombre_archivo_sin_extension_obtenido = nombre_archivo_sin_extension_obtenido.strip()
 
-                    extension_del_archivo_obtenido = webdriver_test_ux.find_element_by_class_name('ext').get_attribute('innerText')
+                    extension_del_archivo_obtenido = webdriver_test_ux.find_element_by_class_name(
+                        'ext').get_attribute('innerText')
                     extension_del_archivo_obtenido = extension_del_archivo_obtenido.strip()
 
-                    nombre_archivo_formateado = '{}{}'.format(nombre_archivo_sin_extension_obtenido, extension_del_archivo_obtenido)
+                    nombre_archivo_formateado = '{}{}'.format(nombre_archivo_sin_extension_obtenido,
+                                                              extension_del_archivo_obtenido)
 
                     if nombre_archivo_formateado == nombre_completo_de_la_imagen:
                         lista_botones = div.find_elements_by_class_name('action')
@@ -342,6 +352,10 @@ class EvaluacionesClaroDriveSteps:
             jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 4, 0, False, msg_output)
 
         except StaleElementReferenceException as e:
+            msg_output = constantes_evaluaciones_claro_drive.MSG_OUTPUT_BORRADO_ARCHIVO_SIN_EXITO.format(e.msg)
+            jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 4, 0, False, msg_output)
+
+        except ElementNotInteractableException as e:
             msg_output = constantes_evaluaciones_claro_drive.MSG_OUTPUT_BORRADO_ARCHIVO_SIN_EXITO.format(e.msg)
             jsonEval = UtilsEvaluaciones.establecer_output_status_step(jsonEval, 4, 0, False, msg_output)
 
